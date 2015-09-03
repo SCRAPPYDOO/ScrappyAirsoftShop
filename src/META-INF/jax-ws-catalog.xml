@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="https://webapi.allegro.pl.webapisandbox.pl/service.php?wsdl" uri="wsdl/webapi.allegro.pl.webapisandbox.pl/service.php.wsdl"/>
+    <system systemId="file:/E:/Scrappy%20Airsoft%20Shop/ScrappyAirsoftShop/xml-resources/web-service-references/service/wsdl/webapi.allegro.pl.webapisandbox.pl/service.php.wsdl" uri="wsdl/service.php.wsdl"/>
 </catalog>
