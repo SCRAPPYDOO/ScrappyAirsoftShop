@@ -5,8 +5,6 @@
  
 package sqlconnector;
 
-import gui.items.ItemsInStruct;
-import gui.orders.OrdersStruct;
 import database.databaseStruct.OutcomesStruct;
 import database.databaseStruct.TableStructInterface;
 import java.sql.Connection;
@@ -21,7 +19,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 /**
  *
  * @author User
@@ -414,9 +411,9 @@ public final class SqlConnector {
     public static boolean connectToDataBase(String host, String uName, String uPass) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-            host = "jdbc:mysql://localhost:3306/scrappy_shop"; //"jdbc:derby://localhost:1527/sklep";
+            host = "jdbc:mysql://localhost:3306/scrappy_airsoft_shop"; //"jdbc:derby://localhost:1527/sklep";
             uName = "scrappy";
-            uPass= "Marcin110887";
+            uPass= "Marcin";
             conn = DriverManager.getConnection( host, uName, uPass );
             
             sta = conn.createStatement();

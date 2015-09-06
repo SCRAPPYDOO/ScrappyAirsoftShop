@@ -61,13 +61,13 @@ public enum PackageType {
                 
             //PACZKI    
                 
-            //case P48_XS: cost = "12.99"; break;    
-            //case P48_S: cost = "12.99"; break;
+            case P48_XS: cost = "11.50"; break;    
+            case P48_S: cost = "12.25"; break;
             case P48_M: cost = "12.99"; break;
-            case P48_L: cost = "14,48"; break;
-            //case P48_XL: cost = "14,48"; break;
-            //case P48_XXL: cost = "14,48"; break;
-            //case P48P_XS: cost = "14,48"; break;
+            case P48_L: cost = "14.48"; break;
+            case P48_XL: cost = "15.97"; break;
+            case P48_XXL: cost = "18.20"; break;
+            case P48P_XS: cost = "14.88"; break;
             case P48P_S: cost = "15.62"; break;
             case P48P_M: cost = "16.37"; break;
             //case P48P_L: cost = "146,48"; break;

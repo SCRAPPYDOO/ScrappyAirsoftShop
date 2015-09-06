@@ -43,3 +43,6 @@ Temporary Items
 .apdisk
 *.xml
 *.class
+*.class
+*.class
+*.properties

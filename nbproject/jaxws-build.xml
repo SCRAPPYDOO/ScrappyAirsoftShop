@@ -50,5 +50,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/service.php"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/n"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-service, wsimport-client-service.php"/>
+    <target name="wsimport-client-service.php_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service.php_1"/>
+        <property name="wsdl-service.php_1" location="xml-resources/web-service-references/service.php_1/wsdl/service.php.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service.php_1" destdir="${build.generated.dir}/jax-wsCache/service.php_1" wsdl="${wsdl-service.php_1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="file:/J:/Projects/ScrappyAirsoftShop/xml-resources/web-service-references/service/wsdl/webapi.allegro.pl.webapisandbox.pl/service.php.wsdl" xnocompile="true" xendorsed="true" package="gui">
+            <depends file="${wsdl-service.php_1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service.php_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service.php_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-service.php_1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service.php_1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gui"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-service, wsimport-client-service.php, wsimport-client-service.php_1"/>
 </project>
