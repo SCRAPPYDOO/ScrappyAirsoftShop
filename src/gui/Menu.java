@@ -9,6 +9,7 @@ import gui.customers.CustomersWindow;
 import gui.items.ItemsWindow;
 import gui.documents.DocumentsWindow;
 import gui.orders.OrdersWindow;
+import gui.settings.Settings;
 import gui.utils.UtilsWindow;
 import java.awt.Rectangle;
 import javax.swing.JInternalFrame;
@@ -46,6 +47,7 @@ public class Menu extends javax.swing.JFrame {
         deliveries = new javax.swing.JToggleButton();
         contractorsButton = new javax.swing.JButton();
         documents = new javax.swing.JButton();
+        settings = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -139,6 +141,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        settings.setText("SETTINGS");
+        settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -155,7 +164,8 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(documents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(documents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
@@ -181,7 +191,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(documents)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addComponent(settings)
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -234,10 +246,10 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(frameHandler, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(227, Short.MAX_VALUE))
-            .addComponent(frameHandler)
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 302, Short.MAX_VALUE)
@@ -292,6 +304,10 @@ public class Menu extends javax.swing.JFrame {
         this.createWindow(new DocumentsWindow());
     }//GEN-LAST:event_documentsActionPerformed
 
+    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
+        this.createWindow(new Settings());
+    }//GEN-LAST:event_settingsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contractorsButton;
     private javax.swing.JButton customers;
@@ -315,12 +331,14 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton ordersButton;
     private javax.swing.JPanel outcomesPanel;
+    private javax.swing.JButton settings;
     // End of variables declaration//GEN-END:variables
 
     private void createWindow(JInternalFrame frame) {
         frameHandler.add(frame, 0);
         Rectangle bounds = frameHandler.getBounds();
         frame.setBounds(0, 0, (int)bounds.getWidth(), (int)bounds.getHeight());
+        frame.setVisible(true);
         frameHandler.repaint();
     }
 }

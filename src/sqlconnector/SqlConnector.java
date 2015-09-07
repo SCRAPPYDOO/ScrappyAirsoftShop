@@ -19,63 +19,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author User
- */
-
-/*
-ewidencja_out
-
-INSERT INTO `scrappy_shop`.`ewidencja_out`
-(`ID`,
-`DATA_SPRZEDAZY`,
-`TYP_PLATNOSCI`,
-`ID_PLATNOSCI`,
-`ID_KUPUJACY`,
-`KOD_PRODUKTU`,
-`TYP_EWIDENCJI`,
-`STATUS_PLATNOSCI`,
-`KOSZT_DOSTAWY`,
-`TYP_DOSTAWY`,
-`NASZ_KOSZT_DOSTAWY`,
-`ILOSC`,
-`CENA_HURTOWA`,
-`CENA_DETALICZNA`,
-`RABAT`,
-`ALLEGRO`)
-VALUES
-(<{ID: }>,
-<{DATA_SPRZEDAZY: }>,
-<{TYP_PLATNOSCI: }>,
-<{ID_PLATNOSCI: }>,
-<{ID_KUPUJACY: }>,
-<{KOD_PRODUKTU: }>,
-<{TYP_EWIDENCJI: }>,
-<{STATUS_PLATNOSCI: }>,
-<{KOSZT_DOSTAWY: }>,
-<{TYP_DOSTAWY: }>,
-<{NASZ_KOSZT_DOSTAWY: }>,
-<{ILOSC: }>,
-<{CENA_HURTOWA: }>,
-<{CENA_DETALICZNA: }>,
-<{RABAT: }>,
-<{ALLEGRO: }>);
-
- */
 
 public final class SqlConnector {
     
     static private Connection conn = null;
     static private Statement sta = null;
-
-    public static void incrementOutcomesCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static String getOutcomesCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public static boolean doQuery(String sql) {        
         return doExecuteUpdate(sql);
@@ -411,9 +359,9 @@ public final class SqlConnector {
     public static boolean connectToDataBase(String host, String uName, String uPass) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-            host = "jdbc:mysql://localhost:3306/scrappy_airsoft_shop"; //"jdbc:derby://localhost:1527/sklep";
-            uName = "scrappy";
-            uPass= "Marcin";
+            host = "jdbc:mysql://localhost:3306/" + host; //"jdbc:derby://localhost:1527/sklep";
+            //uName = "scrappy";
+            //uPass= "Marcin";
             conn = DriverManager.getConnection( host, uName, uPass );
             
             sta = conn.createStatement();
