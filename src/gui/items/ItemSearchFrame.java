@@ -4,7 +4,6 @@
  */
 package gui.items;
 
-import gui.items.ItemsStruct;
 import database.databaseStruct.TableStructInterface;
 import gui.Window;
 import java.math.BigDecimal;
@@ -59,7 +58,6 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         searchResultTable = new javax.swing.JTable();
@@ -67,8 +65,6 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         itemName = new javax.swing.JTextField();
         selectButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        resultSizeField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         amount = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -92,14 +88,7 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        searchButton.setText("SEARCH");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Kod");
+        jLabel1.setText("ITEM CODE");
 
         searchResultTable.setModel(new javax.swing.table.DefaultTableModel(
             null,
@@ -134,12 +123,22 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
                 itemCodeActionPerformed(evt);
             }
         });
+        itemCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                itemCodeKeyReleased(evt);
+            }
+        });
 
-        jLabel2.setText("Nazwa");
+        jLabel2.setText("ITEM NAME");
 
         itemName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemNameActionPerformed(evt);
+            }
+        });
+        itemName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                itemNameKeyReleased(evt);
             }
         });
 
@@ -147,15 +146,6 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Rersult Size");
-
-        resultSizeField.setText("30");
-        resultSizeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resultSizeFieldActionPerformed(evt);
             }
         });
 
@@ -193,7 +183,7 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addGap(41, 41, 41)
@@ -204,19 +194,14 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(itemName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resultSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemName, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(293, 293, 293))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,11 +215,8 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(resultSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(searchButton))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,7 +224,7 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(amountWarning))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectButton)
                     .addComponent(jButton1))
@@ -259,34 +241,6 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
     private void itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemNameActionPerformed
-
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String itemCodeSearch = itemCode.getText();
-        String itemNameSearch = itemName.getText();
-        
-        List<Map<SqlWhereStruct, Object>> params = new ArrayList();
-       
-        if(!itemCodeSearch.equals("")) {
-            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_ACTUAL_AMOUNT), "0", ">", "AND"));
-            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_CODE), "%"+ itemCodeSearch +"%", "LIKE", "OR"));
-        }
-        if(!itemNameSearch.equals("")) {
-            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_ACTUAL_AMOUNT), "0", ">", "AND"));
-            params.add(Sql.getWhereMap(ItemsStruct.getValueWithTableName(ItemsStruct.ITEM_NAME), "%"+ itemNameSearch +"%", "LIKE", ""));
-        }
-        
-        Map<SqlJoinConditionStruct, TableStructInterface> joinCondition = new HashMap();
-        joinCondition.put(SqlJoinConditionStruct.JOIN_LEFT, ItemsInStruct.ITEM_CODE);
-        joinCondition.put(SqlJoinConditionStruct.JOIN_RIGHT, ItemsStruct.ITEM_CODE);
-        
-        String leftjoinQuery = Sql.getLeftJoinQuery(ItemsInStruct.getTableName(), ItemsStruct.getTableName(), columnList, joinCondition, params);
-   
-        String[] columnNames = { ItemsInStruct.ITEM_ID.toString(), ItemsInStruct.ITEM_CODE.toString(), ItemsStruct.ITEM_NAME.toString(), ItemsInStruct.ITEM_PRICE.toString(), ItemsInStruct.ITEM_ACTUAL_AMOUNT.toString()}; 
-        DefaultTableModel model = new DefaultTableModel(null, columnNames);
-        SqlConnector.doSelectQuery(leftjoinQuery, columnList, model);
-        searchResultTable.setModel(model);
-        searchResultTable.repaint();
-    }//GEN-LAST:event_searchButtonActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         int selectedRowId = searchResultTable.getSelectedRow();        
@@ -338,10 +292,6 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_selectButtonActionPerformed
 
-    private void resultSizeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultSizeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resultSizeFieldActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -379,6 +329,14 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         parent.setWindowState(true);     
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void itemCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemCodeKeyReleased
+        updateTable();
+    }//GEN-LAST:event_itemCodeKeyReleased
+
+    private void itemNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemNameKeyReleased
+        updateTable();
+    }//GEN-LAST:event_itemNameKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;
     private javax.swing.JLabel amountWarning;
@@ -387,12 +345,42 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField resultSizeField;
-    private javax.swing.JButton searchButton;
     private javax.swing.JTable searchResultTable;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
+
+    private void updateTable() {
+        String itemCodeSearch = itemCode.getText();
+        String itemNameSearch = itemName.getText();
+
+        List<Map<SqlWhereStruct, Object>> params = new ArrayList();
+
+        if(!itemCodeSearch.equals("")) {
+            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_ACTUAL_AMOUNT), "0", ">", "AND"));
+            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_CODE), "%"+ itemCodeSearch +"%", "LIKE", "OR"));
+        }
+        
+        if(!itemNameSearch.equals("")) {
+            params.add(Sql.getWhereMap(ItemsInStruct.getValueWithTableName(ItemsInStruct.ITEM_ACTUAL_AMOUNT), "0", ">", "AND"));
+            params.add(Sql.getWhereMap(ItemsStruct.getValueWithTableName(ItemsStruct.ITEM_NAME), "%"+ itemNameSearch +"%", "LIKE", ""));
+        }
+
+        if(params.size() < 1) {
+            return;
+        }
+        
+        Map<SqlJoinConditionStruct, TableStructInterface> joinCondition = new HashMap();
+        joinCondition.put(SqlJoinConditionStruct.JOIN_LEFT, ItemsInStruct.ITEM_CODE);
+        joinCondition.put(SqlJoinConditionStruct.JOIN_RIGHT, ItemsStruct.ITEM_CODE);
+
+        String leftjoinQuery = Sql.getLeftJoinQuery(ItemsInStruct.getTableName(), ItemsStruct.getTableName(), columnList, joinCondition, params);
+
+        String[] columnNames = { ItemsInStruct.ITEM_ID.toString(), ItemsInStruct.ITEM_CODE.toString(), ItemsStruct.ITEM_NAME.toString(), ItemsInStruct.ITEM_PRICE.toString(), ItemsInStruct.ITEM_ACTUAL_AMOUNT.toString()};
+        DefaultTableModel model = new DefaultTableModel(null, columnNames);
+        SqlConnector.doSelectQuery(leftjoinQuery, columnList, model);
+        searchResultTable.setModel(model);
+        searchResultTable.repaint();
+    }
 }
