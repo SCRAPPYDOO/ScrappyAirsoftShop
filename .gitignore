@@ -50,3 +50,5 @@ cat .build\
 
 *.class
 *.class
+nbproject/private/private.xml
+*.class

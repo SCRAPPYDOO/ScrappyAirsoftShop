@@ -4,6 +4,8 @@
  */
 package gui.settings;
 
+import global.GlobalParameters;
+import gui.Frame;
 import gui.Window;
 import java.util.Map;
 import sqlconnector.SqlConnector;
@@ -12,13 +14,19 @@ import sqlconnector.SqlConnector;
  *
  * @author User
  */
-public class Settings extends javax.swing.JInternalFrame implements Window{
+public class Settings extends Frame implements Window {
 
-    /**
-     * Creates new form Settings
-     */
+    
+    
     public Settings() {
+        name = "SETTINGS";
         initComponents();
+        if(GlobalParameters.DATABASE_CONNECTED) {
+            connectionStatus.setText("CONNECTED");
+        } else {
+            connectionStatus.setText("NOT CONNECTED");
+        }
+        setParams();
     }
 
     /**
@@ -46,10 +54,25 @@ public class Settings extends javax.swing.JInternalFrame implements Window{
         jLabel3.setText("DB IP");
 
         usernameField.setText("scrappy");
+        usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyReleased(evt);
+            }
+        });
 
         passwordField.setText("marcin");
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyReleased(evt);
+            }
+        });
 
         hostField.setText("scrappy_shop");
+        hostField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                hostFieldKeyReleased(evt);
+            }
+        });
 
         connectionStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         connectionStatus.setText("NOT CONNECTED");
@@ -120,11 +143,25 @@ public class Settings extends javax.swing.JInternalFrame implements Window{
         String host = hostField.getText();
         
         if(SqlConnector.connectToDataBase(host, username, password)) {
+            GlobalParameters.DATABASE_CONNECTED = true;
             connectionStatus.setText("CONNECTED");
         } else {
+            GlobalParameters.DATABASE_CONNECTED = false;
             connectionStatus.setText("NOT CONNECTED");
         }
     }//GEN-LAST:event_connectToDataBaseMouseReleased
+
+    private void hostFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hostFieldKeyReleased
+        GlobalParameters.DATABASE_IP = hostField.getText();
+    }//GEN-LAST:event_hostFieldKeyReleased
+
+    private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
+        GlobalParameters.DATABASE_PASSWORD = passwordField.getText();
+    }//GEN-LAST:event_passwordFieldKeyReleased
+
+    private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
+        GlobalParameters.DATABASE_USERNAME = usernameField.getText();
+    }//GEN-LAST:event_usernameFieldKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connectToDataBase;
