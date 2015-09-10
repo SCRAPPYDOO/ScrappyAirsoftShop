@@ -46,9 +46,16 @@ Temporary Items
 *.class
 *.class
 *.properties
-cat .build\
+cat 
 
 *.class
 *.class
 nbproject/private/private.xml
 *.class
+*.class
+build/classes/global/GlobalParameters.class
+cmd.bat
+.build/
+build/
+build/built-jar.properties
+build/classes/gui/customers/CustomersStruct.class
