@@ -13,6 +13,7 @@ import gui.settings.Settings;
 import gui.utils.UtilsWindow;
 import java.awt.Rectangle;
 import javax.swing.JInternalFrame;
+import utils.Log;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         this.setVisible(true);
+
+        
     }
 
     /**
@@ -59,6 +62,16 @@ public class Menu extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout outcomesPanelLayout = new javax.swing.GroupLayout(outcomesPanel);
         outcomesPanel.setLayout(outcomesPanelLayout);
@@ -70,6 +83,13 @@ public class Menu extends javax.swing.JFrame {
             outcomesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        frameHandler.setBounds(frameHandler.getX(), frameHandler.getY(), this.getWidth(), this.getHeight());
+        frameHandler.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                frameHandlerComponentResized(evt);
+            }
+        });
 
         customers.setText("CUSTOMERS");
         customers.addActionListener(new java.awt.event.ActionListener() {
@@ -307,6 +327,18 @@ public class Menu extends javax.swing.JFrame {
     private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         this.createWindow(new Settings());
     }//GEN-LAST:event_settingsActionPerformed
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void frameHandlerComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_frameHandlerComponentResized
+        frameHandler.setBounds(frameHandler.getX(), frameHandler.getY(), this.getWidth() - frameHandler.getX(), this.getHeight() - frameHandler.getY());
+    }//GEN-LAST:event_frameHandlerComponentResized
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        frameHandler.setBounds(frameHandler.getX(), frameHandler.getY(), this.getWidth() - frameHandler.getX(), this.getHeight() - frameHandler.getY());    
+    }//GEN-LAST:event_formComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contractorsButton;
