@@ -85,7 +85,7 @@
               <Component id="menuPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="frameHandler" min="-2" pref="1178" max="-2" attributes="0"/>
-              <EmptySpace pref="41" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -137,7 +137,9 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="frameHandler.setBounds(frameHandler.getX(), frameHandler.getY(), this.getWidth(), this.getHeight());"/>
       </AuxValues>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
     </Container>
     <Container class="javax.swing.JPanel" name="menuPanel">
 
@@ -152,12 +154,13 @@
                       <Component id="customers" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
                       <Component id="deliveries" alignment="1" max="32767" attributes="0"/>
-                      <Component id="contractorsButton" alignment="1" pref="115" max="32767" attributes="0"/>
+                      <Component id="contractorsButton" alignment="1" max="32767" attributes="0"/>
                       <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
                       <Component id="jButton2" max="32767" attributes="0"/>
                       <Component id="documents" max="32767" attributes="0"/>
                       <Component id="settings" max="32767" attributes="0"/>
+                      <Component id="mailSender" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -186,7 +189,9 @@
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="documents" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="190" max="32767" attributes="0"/>
+                  <EmptySpace pref="156" max="32767" attributes="0"/>
+                  <Component id="mailSender" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="settings" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -280,6 +285,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="mailSender">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="MAIL SENDER TESTER"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mailSenderActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

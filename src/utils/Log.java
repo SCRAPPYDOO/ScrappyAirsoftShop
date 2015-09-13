@@ -4,6 +4,8 @@
  */
 package utils;
 
+import global.GlobalParameters;
+
 /**
  *
  * @author User
@@ -15,5 +17,11 @@ public class Log {
         if(logEnabled) {
             System.out.println(log);
         }        
+    }
+
+    public static void email(String log) {
+        if(GlobalParameters.LOGGER_EMAIL) {
+            log("EMAIL SENDER: " + log);
+        }
     }
 }

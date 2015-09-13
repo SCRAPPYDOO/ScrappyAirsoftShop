@@ -17,11 +17,15 @@ import java.awt.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.table.DefaultTableModel;
+import mail.MailSender;
+import mail.MailMessage;
 import postoffice.PackageType;
 import sqlconnector.Sql;
 import sqlconnector.SqlConnector;
@@ -32,6 +36,10 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
 
     private OrderViewWindowType type;
     private Window parent;
+    private OrderStatus oldOrderStatus;
+    
+    //set when orderState is changed
+    private boolean isOrderStateChanged = false;
     
     public OrderViewWindow() {
         super("ORDER VIEW", true,true,true,true);
@@ -80,6 +88,12 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
                 case "SHIPMENT_COST": shipmentCost.setText(""+value); break;
                 case "SHIPMENT_OUR_COST": ourShipmentCost.setText(""+value); break;
                 case "TRACKING_ID": trackingId.setText((String)value); break;
+                case "ORDER_STATUS":
+                    if(value != null) {
+                        orderState.setSelectedItem(OrderStatus.getPackageByName(value)); 
+                        oldOrderStatus = (OrderStatus) orderState.getSelectedItem();
+                    }
+                    break;    
             }
         }
         
@@ -97,6 +111,7 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
         if(isNewOrder) {
             clearAllFields();
         }
+
     }
 
     /**
@@ -145,6 +160,8 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
         sumAllValues = new javax.swing.JButton();
         summary = new javax.swing.JTextField();
         itemReturnButton = new javax.swing.JButton();
+        orderState = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -327,6 +344,25 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
             }
         });
 
+        orderState.setModel(new javax.swing.DefaultComboBoxModel(OrderStatus.values()));
+        orderState.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                orderStateItemStateChanged(evt);
+            }
+        });
+        orderState.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                orderStateMouseReleased(evt);
+            }
+        });
+        orderState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderStateActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("ORDER STATUS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -385,21 +421,28 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
                                 .addGap(68, 68, 68)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel28)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(shipmentType, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel27)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(shipmentCost, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel29)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(orderState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(trackingId)
-                                            .addComponent(ourShipmentCost, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))))
+                                            .addComponent(ourShipmentCost, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel28)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(shipmentType, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel27)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(shipmentCost, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(170, 170, 170)))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -469,10 +512,14 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
                             .addComponent(trackingId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(orderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(orderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(orderState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
                 .addGap(18, 18, 18)
                 .addComponent(warningLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(productCodeSearchButon)
                     .addComponent(removeSelectedItemButton)
@@ -584,6 +631,10 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
             return;
         }
         
+        OrderStatus orderStateObject = (OrderStatus) orderState.getSelectedItem();
+        List<Map<String, String>> itemList = new ArrayList();
+        
+        
         insertMap.put(OrdersStruct.CUSTOMER_ID, buyerID.getText());
         insertMap.put(OrdersStruct.ORDER_DATE, saleDate.getText());
         
@@ -595,6 +646,7 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
         insertMap.put(OrdersStruct.PAYMENT_STATUS, paymentStatus.getSelectedItem().toString());
         insertMap.put(OrdersStruct.RECORD_TYPE, recordType.getSelectedItem().toString());
         insertMap.put(OrdersStruct.ALLEGRO_FLAG, allegro.getSelectedItem().toString());
+        insertMap.put(OrdersStruct.ORDER_STATUS, orderStateObject.toString());
         
         if(shipmentType.getSelectedIndex() != -1) {           
             insertMap.put(OrdersStruct.SHIPMENT_TYPE, shipmentType.getSelectedItem().toString());
@@ -608,7 +660,8 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
             insertMap.put(OrdersStruct.SHIPMENT_OUR_COST, new BigDecimal(ourShipmentCost.getText().replace(",", ".")));
         }
         
-        insertMap.put(OrdersStruct.TRACKING_ID, trackingId.getText());
+        String trackingIdNumber = trackingId.getText();
+        insertMap.put(OrdersStruct.TRACKING_ID, trackingIdNumber);
         
         String newOrderSql;
         
@@ -650,10 +703,14 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
         
         for(int i=0; i<model.getRowCount(); i++) {
             Map<TableStructInterface, Object> values = new HashMap();
-              
+            
+            //Mapa na potrzeby meila 
+            Map<String, String> item = new HashMap();  
+            
             for(TableStructInterface struct : ItemsOutStruct.values()) {
                 Object value = model.getValueAt(i, model.findColumn(struct.toString()));
                 if(value != null) {
+                    item.put(struct.toString(), value.toString());
                     values.put(struct, value);
                 }
             }
@@ -679,10 +736,32 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
                 if(!SqlConnector.doUpdateQuery(incomesUpdate)) {
                     return;
                 }
-            }     
-     
+            } 
+            
+            itemList.add(item);
         }
 
+        /*
+            WYSLANIE E MEILA
+            Jezeli nowe zamowienie wysylamy order created
+            Jezeli edycja spradzamy czy zmieniamy    
+        */
+        MailMessage mail = new MailMessage();
+        mail.setToEmail(title);
+        mail.setItemTable(itemList);
+        mail.setOrderId(addedOrderID.toString());
+        mail.setTrackingId(trackingIdNumber);
+        
+        mail.setMailType(orderStateObject);
+
+        if(OrderViewWindowType.VIEW == type) {
+            if(oldOrderStatus != (OrderStatus)orderState.getSelectedItem()) {
+                MailSender.sendMail(mail);
+            }
+        } else if(OrderViewWindowType.NEW_ORDER == type) {
+            MailSender.sendMail(mail);
+        }
+        
         //ZAMKNIECIE OKNA
         parent.doAction("REFRESH_TABLE");
         this.dispose();        
@@ -780,6 +859,18 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
         parent.setWindowState(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void orderStateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_orderStateItemStateChanged
+        
+    }//GEN-LAST:event_orderStateItemStateChanged
+
+    private void orderStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderStateActionPerformed
+        setOrderState((OrderStatus) orderState.getSelectedItem());
+    }//GEN-LAST:event_orderStateActionPerformed
+
+    private void orderStateMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStateMouseReleased
+
+    }//GEN-LAST:event_orderStateMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewOrderButton;
     private javax.swing.JComboBox allegro;
@@ -799,10 +890,12 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField orderID;
+    private javax.swing.JComboBox orderState;
     private javax.swing.JTextField ourShipmentCost;
     private javax.swing.JTextField paymentDate;
     private javax.swing.JTextField paymentID;
@@ -909,6 +1002,11 @@ public class OrderViewWindow extends javax.swing.JInternalFrame implements Windo
 
     @Override
     public void doAction(String action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+
+    private void setOrderState(OrderStatus selectedItem) {
+        Log.log("TEST " + selectedItem);
+        isOrderStateChanged = true;
     }
 }

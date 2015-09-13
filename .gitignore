@@ -53,9 +53,7 @@ cat
 nbproject/private/private.xml
 *.class
 *.class
-build/classes/global/GlobalParameters.class
 cmd.bat
 .build/
 build/
-build/built-jar.properties
-build/classes/gui/customers/CustomersStruct.class
+

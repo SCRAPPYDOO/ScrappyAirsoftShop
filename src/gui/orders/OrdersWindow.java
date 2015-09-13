@@ -33,7 +33,7 @@ public class OrdersWindow extends javax.swing.JInternalFrame implements Window {
         initComponents();
         this.setResizable(true);
         this.setVisible(true);
-        refreshTable();
+        this.refreshTable(this.getFiltersMap());
     }
      
     public OrdersWindow(OrdersWindowType type, Window parent, int customerId) {
@@ -44,7 +44,7 @@ public class OrdersWindow extends javax.swing.JInternalFrame implements Window {
         setOrdersWindowType(type);
         this.parent = parent;
         this.customerId = customerId;
-        refreshTable();
+        this.refreshTable(this.getFiltersMap());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -314,7 +314,7 @@ public class OrdersWindow extends javax.swing.JInternalFrame implements Window {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         viewOrderButton.setEnabled(false);
         deleteOrderButton.setEnabled(false);
-        this.refreshTable();
+        this.refreshTable(this.getFiltersMap());
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void newOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderButtonActionPerformed
@@ -486,7 +486,7 @@ public class OrdersWindow extends javax.swing.JInternalFrame implements Window {
     public void doAction(String action) {
         switch(action) {
             case "DELETING_ORDER_CONFIRM": deleteSelectedOrder(); break;
-            case "REFRESH_TABLE": refreshTable(); break;
+            case "REFRESH_TABLE": refreshTable(this.getFiltersMap()); break;
             
             default: break;
         }

@@ -37,7 +37,21 @@ public enum PackageType {
     P48P_L,
     P48P_XL,
     P48P_XXL,
+    P48_ODBIOR_XS,   
+    P48_ODBIOR_S,
+    P48_ODBIOR_M,
+    P48_ODBIOR_L,
+    P48_ODBIOR_XL,
+    P48_ODBIOR_XXL,
+    P48P_ODBIOR_XS,
+    P48P_ODBIOR_S,
+    P48P_ODBIOR_M,
+    P48P_ODBIOR_L,
+    P48P_ODBIOR_XL,
+    P48P_ODBIOR_XXL,
     ODBIOR_OSOBISTY;
+
+    
     
     public static String getPackageCost(PackageType packageType) {
         String cost = "0.0";
@@ -56,24 +70,37 @@ public enum PackageType {
             case LP_A_500: cost = "7.2"; break;    
             //case LP_A_1000: cost = "8.3"; break;    
             case LP_B_350: cost = "8.3"; break;
-            //case LP_B_500: cost = "5.5"; break;
+            case LP_B_500: cost = "11.0"; break;
             case LP_B_1000: cost = "11.0"; break;
                 
-            //PACZKI    
-                
+            //PACZKI        
             case P48_XS: cost = "11.50"; break;    
             case P48_S: cost = "12.25"; break;
             case P48_M: cost = "12.99"; break;
             case P48_L: cost = "14.48"; break;
             case P48_XL: cost = "15.97"; break;
             case P48_XXL: cost = "18.20"; break;
+                
+            case P48_ODBIOR_XS: cost = "9.29"; break;    
+            case P48_ODBIOR_S: cost = "10.04"; break;
+            case P48_ODBIOR_M: cost = "10.78"; break;
+            case P48_ODBIOR_L: cost = "12.27"; break;
+            case P48_ODBIOR_XL: cost = "13.76"; break;
+            case P48_ODBIOR_XXL: cost = "15.97"; break;    
+                
             case P48P_XS: cost = "14.88"; break;
             case P48P_S: cost = "15.62"; break;
             case P48P_M: cost = "16.37"; break;
-            //case P48P_L: cost = "146,48"; break;
-            //case P48P_XL: cost = "14,48"; break;
-            //case P48P_XXL: cost = "14,48"; break;
+            case P48P_L: cost = "17.86"; break;
+            case P48P_XL: cost = "19.34"; break;
+            case P48P_XXL: cost = "21.59"; break;
                  
+            //case P48P_ODBIOR_XS: cost = "14.88"; break;
+            //case P48P_ODBIOR_S: cost = "15.62"; break;
+            //case P48P_ODBIOR_M: cost = "16.37"; break;
+            //case P48P_ODBIOR_L: cost = "17.86"; break;
+            //case P48P_ODBIOR_XL: cost = "19.34"; break;
+            //case P48P_ODBIOR_XXL: cost = "21.59"; break;    
                                                 
             default: break;                    
         }

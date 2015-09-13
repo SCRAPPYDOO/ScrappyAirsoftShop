@@ -141,6 +141,7 @@ public enum OrdersStruct implements TableStructInterface {
                 case RECORD_TYPE:
                 case ALLEGRO_FLAG:
                 case SHIPMENT_TYPE:
+                case ORDER_STATUS:
                     value = rs.getString(struct.toString());
                     break;
                 case ORDER_DATE:
@@ -150,8 +151,8 @@ public enum OrdersStruct implements TableStructInterface {
                 case SHIPMENT_COST:
                 case SHIPMENT_OUR_COST:
                     value = rs.getBigDecimal(struct.toString());
-                    break;                                          
-                default: return null;
+                    break;                   
+                default: throw new UnsupportedOperationException("Not supported yet. getValue " + struct.toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrdersStruct.class.getName()).log(Level.SEVERE, null, ex);
