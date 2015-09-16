@@ -10,6 +10,7 @@ package global;
  */
 public class GlobalParameters {
     public static String CUSTOMERS_TABLE_NAME = "customers";
+    public static String DELIVERIES_TABLE_NAME = "deliveries";
     public static String DATABASE_USERNAME = "customers";
     public static String DATABASE_PASSWORD = "customers";
     public static String DATABASE_IP = "customers";

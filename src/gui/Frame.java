@@ -5,13 +5,17 @@
  */
 package gui;
 
+import java.awt.Component;
+import java.util.Map;
+
 /**
  *
  * @author SCRAPPYDOO
  */
-public class Frame extends javax.swing.JInternalFrame {
+public class Frame extends javax.swing.JInternalFrame implements Window {
 
     protected String name = "NO NAME";
+    protected Frame parent = null;
             
     public Frame() {
         super("Frame", true,true,true,true);
@@ -32,6 +36,23 @@ public class Frame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -46,7 +67,7 @@ public class Frame extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 286, Short.MAX_VALUE)
         );
 
         pack();
@@ -58,7 +79,39 @@ public class Frame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formComponentResized
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if(parent != null) {
+            parent.setWindowState(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
 
+    public void setWindowState(boolean enabled) {
+        this.setEnabled(enabled);
+        for(Component comp : this.getContentPane().getComponents()) {
+            comp.setEnabled(enabled);
+        }  
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setResult() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setResult(Object singleResult) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setResult(Map<Object, String> resultMap) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void doAction(String action) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

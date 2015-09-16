@@ -4,6 +4,7 @@
  */
 package gui.items;
 
+import gui.Frame;
 import gui.Window;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -22,11 +23,23 @@ import sqlconnector.SqlWhereStruct;
  */
 public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
 
+    private ItemsViewType viewType = ItemsViewType.VIEW;
+    private Frame parent = null;
+    
     /**
      * Creates new form ItemsWindow
      */
     public ItemsWindow() {
         super("ITEMS", true,true,true,true);
+        initComponents();
+        onInit();
+        refreshTable();
+    }
+    
+    public ItemsWindow(Frame parent, ItemsViewType viewType) {
+        super("ITEMS", true,true,true,true);
+        this.viewType = viewType;
+        this.parent = parent;
         initComponents();
         onInit();
         refreshTable();
@@ -51,6 +64,25 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
         itemCode = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         onlyAvailableFilter = new javax.swing.JRadioButton("Only Available", true);
+        select = new javax.swing.JButton();
+
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         itemsTable.setModel(new javax.swing.table.DefaultTableModel(
             null,
@@ -111,6 +143,23 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
             }
         });
 
+        select.setText("SELECT");
+        if(viewType == ItemsViewType.VIEW) {
+            select.setVisible(false);
+        } else {
+            select.setVisible(true);
+        }
+        select.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                selectMouseReleased(evt);
+            }
+        });
+        select.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                selectStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +169,8 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(select, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,8 +208,10 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(closeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(closeButton)
+                    .addComponent(select))
                 .addContainerGap())
         );
 
@@ -212,6 +264,23 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
         // TODO add your handling code here:
     }//GEN-LAST:event_itemCodeActionPerformed
 
+    private void selectMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectMouseReleased
+        Object selectedItem = itemsTable.getValueAt(itemsTable.getSelectedRow(), itemsTable.getColumn(ItemsStruct.ITEM_CODE.toString()).getModelIndex());
+        this.setResult(selectedItem);
+        parent.setWindowState(true);
+        this.dispose();
+    }//GEN-LAST:event_selectMouseReleased
+
+    private void selectStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_selectStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectStateChanged
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if(parent != null) {
+            parent.setWindowState(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JTextField itemCode;
@@ -223,6 +292,7 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton onlyAvailableFilter;
+    private javax.swing.JButton select;
     // End of variables declaration//GEN-END:variables
 
     private void refreshTable() {
@@ -275,12 +345,12 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
 
     @Override
     public void setResult() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void setResult(Object singleResult) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        parent.setResult(singleResult);
     }
     
     public void setItemActualAmount() {
@@ -319,6 +389,6 @@ public class ItemsWindow extends javax.swing.JInternalFrame implements Window {
 
     @Override
     public void doAction(String action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 }

@@ -34,7 +34,6 @@ public class CustomersWindow extends javax.swing.JInternalFrame implements Windo
     
     //Result handler
     private Window parent;
-    private CustomersWindowType type;
  
     public CustomersWindow(Window parent) {        
         super("CUSTOMERS", true,true,true,true);

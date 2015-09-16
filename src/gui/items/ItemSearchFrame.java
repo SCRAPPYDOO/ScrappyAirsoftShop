@@ -45,6 +45,13 @@ public class ItemSearchFrame extends javax.swing.JInternalFrame {
         onInit();
     }
     
+    public ItemSearchFrame(Window parent, String action) {
+        super("ITEM SEARCH WINDOW", true, true, true, true);
+        this.parent = parent;
+        initComponents();
+        onInit();
+    }
+    
     private void onInit() {
         this.setVisible(true);
     }

@@ -6,6 +6,8 @@ package gui;
 
 import gui.contractors.ContractorsWindow;
 import gui.customers.CustomersWindow;
+import gui.deliveries.DeliveryViewWindow;
+import gui.deliveries.DeliveryViewWindowType;
 import gui.items.ItemsWindow;
 import gui.documents.DocumentsWindow;
 import gui.orders.OrdersWindow;
@@ -329,7 +331,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_contractorsButtonActionPerformed
 
     private void deliveriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveriesActionPerformed
-        // TODO add your handling code here:
+        this.createWindow(new DeliveryViewWindow(null, DeliveryViewWindowType.NEW_DELIVERY)); 
     }//GEN-LAST:event_deliveriesActionPerformed
 
     private void documentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentsActionPerformed

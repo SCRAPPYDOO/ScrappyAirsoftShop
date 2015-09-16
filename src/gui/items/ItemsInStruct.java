@@ -39,6 +39,16 @@ public enum ItemsInStruct implements TableStructInterface{
         return ItemsInStruct.getTableName() + "." + itemsInStruct.toString();
     }
 
+    public static String[] getInsertTableStruct() {
+        String[] temp = { ItemsInStruct.ITEM_CODE.toString(), ItemsInStruct.ITEM_AMOUNT.toString(), ItemsInStruct.ITEM_PRICE.toString(),};
+        return temp;
+    }
+
+    public static String[] getSelectTableStruct() {
+        String[] temp = { ItemsInStruct.ITEM_CODE.toString(), ItemsInStruct.ITEM_AMOUNT.toString(), ItemsInStruct.ITEM_PRICE.toString(), ItemsInStruct.ITEM_ACTUAL_AMOUNT.toString(), ItemsInStruct.ITEM_STOCK_TAKING_AMOUNT.toString()};
+        return temp;
+    }
+
     @Override
     public Object getValue(ResultSet rs) {
         Object value = null;

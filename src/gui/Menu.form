@@ -137,9 +137,7 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="frameHandler.setBounds(frameHandler.getX(), frameHandler.getY(), this.getWidth(), this.getHeight());"/>
       </AuxValues>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout"/>
     </Container>
     <Container class="javax.swing.JPanel" name="menuPanel">
 
